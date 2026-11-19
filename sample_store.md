@@ -92,8 +92,33 @@ ORDER BY "Order ID", "Product ID"
 ```
 <img width="1575" height="227" alt="1 5 2" src="https://github.com/user-attachments/assets/e81e06d9-3633-4713-9bad-dad8c3a1b22f" />
 
+#### Повторяющиеся комбинации имеют различные Sales, Quantity, Profit значения. Эти записи не являются дубликатами 
 
+---
 
+### 1.6 Проверка гранулярности данных 
+```sql
+SELECT AVG(average_rows_per_order)
+FROM(
+SELECT "Order ID", COUNT(*) AS average_rows_per_order
+FROM sample
+GROUP BY 1) 
+```
+<img width="130" height="73" alt="1 6" src="https://github.com/user-attachments/assets/747e15fc-4749-420b-888e-3b763e251a39" />
+#### Среднее количество строк на заказ приблизительно равно двум 
+---
+--- 
+
+### 1.7 Категориальный анализ - какие категории, регионы и сегменты представлены в наборе данных 
+```sql
+SELECT "Category", 
+	   COUNT(*) AS total_rows, 
+	   SUM("Quantity") AS units_sold
+FROM sample
+GROUP BY "Category"
+ORDER BY units_sold DESC 
+```
+<img width="477" height="127" alt="1 7" src="https://github.com/user-attachments/assets/a7d9beeb-9135-4180-91f0-d7e8c60a1bbc" />
 
 
 
