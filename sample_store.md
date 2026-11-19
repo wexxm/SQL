@@ -106,7 +106,7 @@ GROUP BY 1)
 ```
 <img width="130" height="73" alt="1 6" src="https://github.com/user-attachments/assets/747e15fc-4749-420b-888e-3b763e251a39" />
 #### Среднее количество строк на заказ приблизительно равно двум 
----
+
 --- 
 
 ### 1.7 Категориальный анализ - какие категории, регионы и сегменты представлены в наборе данных 
@@ -120,10 +120,34 @@ ORDER BY units_sold DESC
 ```
 <img width="477" height="127" alt="1 7" src="https://github.com/user-attachments/assets/a7d9beeb-9135-4180-91f0-d7e8c60a1bbc" />
 
+#### Считаем долю каждой категории в наборе данных 
 
+```sql
+SELECT "Category", 
+		ROUND(units_sold::DECIMAL / SUM(units_sold) OVER() * 100, 2) AS category_ratio
+FROM(
+SELECT "Category", 
+	   COUNT(*) AS total_rows, 
+	   SUM("Quantity") AS units_sold
+FROM sample
+GROUP BY "Category") 
+ORDER BY category_ratio DESC
+```
 
+<img width="348" height="86" alt="1 7 2" src="https://github.com/user-attachments/assets/8193ed6d-b228-4323-b37e-e5ca6565dfcc" />
 
+#### Явным лидером является Office Supplies, рассмотрим подкатегории, формирующие этот результат
+```sql
+SELECT "Category", 
+	   "Sub-Category", 
+	   COUNT(*) AS total_rows, 
+	   SUM("Quantity") AS units_sold
+FROM sample 
+GROUP BY 1, 2
+ORDER BY units_sold DESC 
 
+```
+<img width="642" height="332" alt="1 7 3" src="https://github.com/user-attachments/assets/f7d501c1-9e56-471c-8b1c-951d3042c4b2" />
 
 
 
