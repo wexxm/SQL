@@ -21,8 +21,29 @@ SELECT count(*) AS total_rows,
 <img width="985" height="141" alt="1 2" src="https://github.com/user-attachments/assets/eb95ddd6-6f2a-4fc6-85fb-aceaf216a400" />
 
 
-### 1.3 Период представленных данных 
+### 1.3 Период представленных данных (этап Data Exploration, данные еще не приведены к нужному типу данных)
 
 ```sql 
-SELECT min("Order Date"), min("Ship Date"), max("Order Date"), max("Ship Date") FROM sample
+SELECT MIN(TO_DATE("Order Date", 'MM/DD/YYYY')) AS first_order_date, 
+       MAX(TO_DATE("Order Date", 'MM/DD/YYYY')) AS last_order_date, 
+       MIN(TO_DATE("Ship Date", 'MM/DD/YYYY')) AS first_ship_date, 
+       MAX(TO_DATE("Ship Date", 'MM/DD/YYYY')) AS last_ship_date
+FROM sample
 ```
+<img width="762" height="65" alt="1 3" src="https://github.com/user-attachments/assets/4199915b-0303-46ad-90b6-9cb61ca192e8" />
+
+### 1.4 Поиск NULL-значений в данных 
+
+```sql
+SELECT
+    COUNT(*) FILTER (WHERE "Order ID" IS NULL) AS missing_order_id,
+    COUNT(*) FILTER (WHERE "Customer ID" IS NULL) AS missing_customer_id,
+    COUNT(*) FILTER (WHERE "Product ID" IS NULL) AS missing_product_id,
+    COUNT(*) FILTER (WHERE "Sales" IS NULL) AS missing_sales,
+    COUNT(*) FILTER (WHERE "Profit" IS NULL) AS missing_profit,
+    COUNT(*) FILTER (WHERE "Order Date" IS NULL) AS missing_order_date,
+    COUNT(*) FILTER (WHERE "Ship Date" IS NULL) AS missing_ship_date
+FROM sample
+```
+<img width="1098" height="66" alt="1 4" src="https://github.com/user-attachments/assets/d0468f3e-1bc9-4661-b1a3-87aa4d445a3c" />
+
