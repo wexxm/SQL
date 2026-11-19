@@ -184,8 +184,38 @@ HAVING COUNT(DISTINCT "Customer Name") > 1
 ```
 #### Каждому Customer ID соответствует одно имя клиента 
 
+### Вернемся к проблеме с Product ID и посмотрим, насколько часто эти 32 айдишника встречаются в заказах
+
+```sql
+SELECT
+    COUNT(*) AS affected_rows,
+    COUNT(DISTINCT "Product ID") AS affected_products,
+    SUM("Sales") AS affected_sales,
+    SUM("Profit") AS affected_profit
+FROM sample
+WHERE "Product ID" IN (
+    SELECT "Product ID"
+    FROM sample
+    GROUP BY "Product ID"
+    HAVING COUNT(DISTINCT "Product Name") > 1
+)
+```
+
+<img width="763" height="82" alt="2 4 6" src="https://github.com/user-attachments/assets/e02af0af-2cf4-4746-a90e-84ba94c35fb3" />
 
 
+#### Мы видим, что затронуто 337 строк, что чуть больше 4% от всех строк датасета.
+ ----
 
+ #### Попробуем решить эту проблему путем создания составного идентификатора, соединив Product ID и Product Name
+### Создание  Product Key 
+ ```sql
+ALTER TABLE sample
+ADD COLUMN "Product Key" VARCHAR;
+
+UPDATE sample
+SET "Product Key" = CONCAT("Product ID", ' | ', "Product Name");
+```
+<img width="215" height="187" alt="2 4 7" src="https://github.com/user-attachments/assets/e18eae78-5167-472d-b4ba-036c5031cca4" />
 
 
