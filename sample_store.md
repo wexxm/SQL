@@ -47,3 +47,11 @@ FROM sample
 ```
 <img width="1098" height="66" alt="1 4" src="https://github.com/user-attachments/assets/d0468f3e-1bc9-4661-b1a3-87aa4d445a3c" />
 
+### 1.5 Поиск дубликатов
+#### Проверка уникальности Row ID  
+
+```sql
+SELECT COUNT(*) - COUNT(DISTINCT "Row ID") AS duplicate_row_ids
+FROM sample 
+```
+#### Row ID уникален
