@@ -148,19 +148,86 @@ ORDER BY units_sold DESC
 
 ```
 <img width="642" height="332" alt="1 7 3" src="https://github.com/user-attachments/assets/f7d501c1-9e56-471c-8b1c-951d3042c4b2" />
+---
 
+### 1.8 Исследуем сегменты, чтобы выяснить, какой тип клиентов формирует основную часть заказов 
 
+```sql
+SELECT "Segment", 
+	COUNT(DISTINCT "Customer ID") AS total_customers, 
+	COUNT(DISTINCT "Order ID") AS total_orders, 
+	SUM("Quantity") AS units_sold
+FROM sample 
+GROUP BY 1 
+ORDER BY units_sold DESC
+```
+<img width="675" height="113" alt="1 8" src="https://github.com/user-attachments/assets/d122ed60-551f-4ab9-a817-1a9155a9bc22" />
 
+#### Consumer - лидирующий клиентский сегмент. Сравнение сегментов производилось по количеству уникальных заказов, клиентов и проданных единиц 
 
+---
 
+### 1.9 Географическое распределение 
 
+```sql
+SELECT "Region", 
+	COUNT(DISTINCT "Customer ID") AS total_customers, 
+	COUNT(DISTINCT "Order ID") AS total_orders, 
+	SUM("Quantity") AS units_sold
+FROM sample
+GROUP BY 1 
+ORDER BY units_sold DESC 
+```
+<img width="651" height="130" alt="1 9" src="https://github.com/user-attachments/assets/b09b5336-e6c0-4e73-afc5-a1c1f56b8efa" />
 
+#### West - лидирующий регион по всем параметрам 
+---
+### 1.10 Распределение по способу доставки 
 
+```sql
+SELECT "Ship Mode", 
+	COUNT(DISTINCT "Customer ID") AS total_customers, 
+	COUNT(DISTINCT "Order ID") AS total_orders 
+FROM sample
+GROUP BY 1 
+ORDER BY total_orders DESC 
+```
+<img width="532" height="138" alt="1 10" src="https://github.com/user-attachments/assets/07b3599f-5e8d-448d-ada5-15fe0d0d9919" />
+#### Standart Class - наиболее распространенный способ доставки 
 
+---
 
+### 1.11 Обзор числовых показателей. 
+#### Смотрим на: Sales, Profit, Discount, Quantity. 
+#### Для каждого показателя найдем минимальное, максимальное, среднее значение и сумму 
 
+```sql
+SELECT
+    MIN("Sales") AS min_sales,
+    MAX("Sales") AS max_sales,
+    ROUND(AVG("Sales")::DECIMAL, 2) AS avg_sales,
+    ROUND(SUM("Sales")::DECIMAL, 2) AS total_sales,
 
+    MIN("Profit") AS min_profit,
+    MAX("Profit") AS max_profit,
+    ROUND(AVG("Profit")::DECIMAL, 2) AS avg_profit,
+    ROUND(SUM("Profit")::DECIMAL, 2) AS total_profit,
 
+    MIN("Discount") AS min_discount,
+    MAX("Discount") AS max_discount,
+    ROUND(AVG("Discount")::DECIMAL, 2) AS avg_discount,
+
+    MIN("Quantity") AS min_quantity,
+    MAX("Quantity") AS max_quantity,
+    ROUND(AVG("Quantity")::DECIMAL, 2) AS avg_quantity,
+    SUM("Quantity") AS total_quantity
+FROM sample
+```
+
+<img width="1281" height="73" alt="1 11" src="https://github.com/user-attachments/assets/33e44344-bbbc-413b-ab12-abd8f9d53ec8" />
+<img width="1242" height="82" alt="1 11 2" src="https://github.com/user-attachments/assets/4bf0275c-307c-4513-a084-142b8ff6e797" />
+
+### Выводы по 1 этапу.
 
 
 
