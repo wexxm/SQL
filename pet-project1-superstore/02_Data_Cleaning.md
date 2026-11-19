@@ -137,17 +137,52 @@ WHERE "Product ID" IN (
     GROUP BY "Product ID"
     HAVING COUNT(DISTINCT "Product Name") > 1
 )
-ORDER BY "Product ID", "Product Name";
-
+ORDER BY "Product ID", "Product Name"
 ```
+
 <img width="803" height="337" alt="2 4 3" src="https://github.com/user-attachments/assets/7cc2e5ae-f4e8-4ead-97d5-3b9cf99fdd1e" />
+
 #### Похоже на то, что есть нарушения в данных. Нельзя использовать Product ID для дальнейшего анализа ассортимента, приведет к некорректным результатам 
 #### Сколько всего идентификаторов товаров имеют несколько названий ? 
 
+```sql
+SELECT
+    COUNT(*) AS inconsistent_product_ids
+FROM (
+    SELECT "Product ID"
+    FROM sample
+    GROUP BY "Product ID"
+    HAVING COUNT(DISTINCT "Product Name") > 1
+) AS inconsistent_products
+```
+#### 32 Product ID имеют несоответствие названий товаров
+#### Выясним, есть ли у этих айдишников противоречия еще и в категориях товаров 
 
+```sql
+SELECT
+    "Product ID",
+    COUNT(DISTINCT "Category") AS category_count,
+    COUNT(DISTINCT "Sub-Category") AS sub_category_count
+FROM sample
+GROUP BY "Product ID"
+HAVING COUNT(DISTINCT "Product Name") > 1
+ORDER BY "Product ID"
+```
 
+<img width="587" height="323" alt="2 4 4" src="https://github.com/user-attachments/assets/019f9087-3645-4060-a323-9a1c2a7e459e" />
 
+#### Несмотря на разные названия, категория и подкатегория у товаров совпадают 
+#### Проверим еще одну связь: Customer ID и имя клиента 
 
+```sql
+SELECT
+    "Customer ID",
+    COUNT(DISTINCT "Customer Name") AS name_count
+FROM sample
+GROUP BY "Customer ID"
+HAVING COUNT(DISTINCT "Customer Name") > 1
+```
+#### Каждому Customer ID соответствует одно имя клиента 
 
 
 
