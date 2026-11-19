@@ -7,10 +7,10 @@ SELECT column_name, data_type, character_maximum_length
 FROM information_schema.columns 
 WHERE table_name = 'sample';```
 
-###1.2 
+### 1.2 
 
 
-###1.3 Период представленных данных 
+### 1.3 Период представленных данных 
 
 ```sql 
 SELECT min("Order Date"), min("Ship Date"), max("Order Date"), max("Ship Date") FROM sample
