@@ -1,4 +1,4 @@
-<img width="336" height="341" alt="2 4 2" src="https://github.com/user-attachments/assets/683be7b2-e9d3-4613-bef6-e7bafae970cf" />## 2 этап - Data_Cleaning - очистка данных перед анализом 
+## 2 этап - Data_Cleaning - очистка данных перед анализом 
 ---
 ### 2.1 Проверка пропусков во всех столбцах 
 ```sql
