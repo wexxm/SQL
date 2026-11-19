@@ -1,0 +1,10 @@
+<h2> 1. Data Exploration - запросы для изучения структуры и данных <\h2>
+
+1.1 Смотрим столбцы и типы данных
+SELECT column_name, data_type, character_maximum_length 
+FROM information_schema.columns 
+WHERE table_name = 'sample';
+
+1.2 
+
+1.3 Период представленных данных 
