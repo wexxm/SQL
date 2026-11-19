@@ -55,3 +55,54 @@ SELECT COUNT(*) - COUNT(DISTINCT "Row ID") AS duplicate_row_ids
 FROM sample 
 ```
 #### Row ID уникален
+
+#### Проверка повторяющихся товарных позиций 
+```sql
+SELECT "Order ID", 
+       "Product ID", 
+       COUNT(*) AS rows_count
+FROM sample
+GROUP BY 1, 2 
+HAVING COUNT(*) > 1
+ORDER BY rows_count
+```
+<img width="477" height="248" alt="1 5" src="https://github.com/user-attachments/assets/f744d661-a5bd-410e-9cd1-99d9c31b0847" />
+#### Есть повторы товарных позиций, исследуем эти повторения
+
+```sql
+SELECT * 
+FROM sample
+WHERE ("Order ID", "Product ID") IN(
+	SELECT "Order ID", 
+       		"Product ID"
+	FROM sample
+	GROUP BY 1, 2 
+	HAVING COUNT(*) > 1) 
+ORDER BY "Order ID", "Product ID"
+```
+<img width="1575" height="227" alt="1 5 2" src="https://github.com/user-attachments/assets/e81e06d9-3633-4713-9bad-dad8c3a1b22f" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
