@@ -29,6 +29,7 @@ FROM sample
 #### В нашем учебном дата-сете нет NULL-значений 
 ---
 ### 2.2 Проверяем, есть ли полностью идентичные строки в таблице 
+
 ```sql
 SELECT
     COUNT(*) AS total_rows,
@@ -42,6 +43,7 @@ SELECT
 FROM sample
 ```
 <img width="331" height="73" alt="2 2" src="https://github.com/user-attachments/assets/c00370f8-63c0-4412-be31-ad928b5a6531" />
+
 #### Полных дубликатов в таблице нет, удаление дубликатов не требуется 
 ---
 ### 2.3 Преобразование типов 
@@ -64,6 +66,7 @@ USING TO_DATE("Order Date", 'MM/DD/YYYY')
 ---
 ### 2.4 Проверка корректности значений 
 #### Числовые показатели: есть ли продажи меньше или равные нулю, нулевые значения количества товаров, скидки за пределами допустимого диапазона (от 0 до 1) 
+
 ```sql
 SELECT
     COUNT(*) FILTER (WHERE "Sales" <= 0) AS invalid_sales,
@@ -71,11 +74,13 @@ SELECT
     COUNT(*) FILTER (WHERE "Discount" < 0 OR "Discount" > 1) AS invalid_discount
 FROM sample
 ```
+
 #### Некорректные значения отсутствуют 
 <img width="567" height="57" alt="2 4" src="https://github.com/user-attachments/assets/e1337b01-31fa-4c35-983a-19249ef3bcfe" />
 
 --- 
 ### Проверка дат 
+
 ```sql
 SELECT
     COUNT(*) FILTER (WHERE "Ship Date" < "Order Date") AS invalid_dates
