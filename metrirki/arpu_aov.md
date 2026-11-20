@@ -1,5 +1,5 @@
-##Задача на расчёт накопительного ARPU, ARPPU, AOV (Running_ARPU, Running_ARPPU, Running_AOV)
-
+## Задача на расчёт накопительного ARPU, ARPPU, AOV (Running_ARPU, Running_ARPPU, Running_AOV)
+---
 
 ```sql
 WITH revenue_per_order AS(
