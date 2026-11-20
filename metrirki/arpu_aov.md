@@ -1,3 +1,6 @@
+##Задача на расчёт накопительного ARPU, ARPPU, AOV (Running_ARPU, Running_ARPPU, Running_AOV)
+
+
 ```sql
 WITH revenue_per_order AS(
  SELECT date, 
@@ -59,3 +62,7 @@ ORDER BY date
 
 
 ```
+---
+### Визуализация результата
+
+<img width="1342" height="776" alt="image" src="https://github.com/user-attachments/assets/975c48cc-c591-415f-a94c-3ca39c9314c9" />
