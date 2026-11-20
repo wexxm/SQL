@@ -40,3 +40,39 @@ ORDER BY year
 ```
 
 <img width="657" height="148" alt="3 1" src="https://github.com/user-attachments/assets/8c57df2a-3c40-4fbc-bd68-c77eb41884a4" />
+#### Динамика выручки и прибыли положительная, особенно выраженный рост наблюдается в 2016-2017 годах
+---
+### 3.3 Динамика продаж по месяцам 
+
+```sql
+SELECT EXTRACT(MONTH FROM "Order Date" ) AS Month, 
+		SUM("Sales") AS total_sales, 
+		SUM("Profit") AS total_profit,
+		COUNT(DISTINCT "Order ID") AS total_orders
+FROM sample 		
+GROUP BY 1
+ORDER BY MONTH
+```
+
+<img width="621" height="332" alt="3 3" src="https://github.com/user-attachments/assets/d8f9ba93-5117-4cef-a911-667ecd355ff8" />
+
+
+
+---
+### 3.4 Динамика продаж по регионам 
+
+
+---
+### 3.5 Продажи по сегментам 
+
+
+---
+### 3.6 Анализ скидок и прибыльности 
+
+
+
+
+
+
+
+
